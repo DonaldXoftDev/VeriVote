@@ -1,0 +1,16 @@
+from fastapi.testclient import TestClient
+
+
+def test_health_endpoint(client: TestClient) -> None:
+    response = client.get("/api/v1/health")
+    assert response.status_code == 200
+    payload = response.json()
+    assert payload["status"] == "ok"
+    assert payload["app"] == "VeriVote"
+    assert payload["database"] == "connected"
+
+
+def test_root_serves_frontend(client: TestClient) -> None:
+    response = client.get("/")
+    assert response.status_code == 200
+    assert "VeriVote" in response.text

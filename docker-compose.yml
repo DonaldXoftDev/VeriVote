@@ -1,0 +1,20 @@
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: verivote_db
+    environment:
+      POSTGRES_USER: verivote
+      POSTGRES_PASSWORD: verivote
+      POSTGRES_DB: verivote
+    ports:
+      - "5432:5432"
+    volumes:
+      - verivote_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U verivote"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  verivote_pgdata:

@@ -1,0 +1,9 @@
+/* Custom Vanilla CSS layer alongside Tailwind CSS */
+.vv-card {
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.vv-card:hover {
+  border-color: rgba(16, 185, 129, 0.45);
+  transform: translateY(-2px);
+}

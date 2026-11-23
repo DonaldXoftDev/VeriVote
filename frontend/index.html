@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VeriVote — Customizable Web-Based Voting System</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="/static/css/styles.css" />
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col">
+  <header class="border-b border-slate-800 bg-slate-900/70 backdrop-blur">
+    <div class="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <span class="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-emerald-500/15 text-emerald-400 font-bold border border-emerald-500/30">V</span>
+        <div>
+          <h1 class="text-lg font-semibold tracking-tight">VeriVote</h1>
+          <p class="text-xs text-slate-400">Customizable Electronic Governance Platform</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="/docs" class="text-sm text-slate-300 hover:text-emerald-400 transition">API Docs</a>
+        <span id="api-status-badge" class="inline-flex items-center gap-1.5 rounded-full bg-slate-800 px-3 py-1 text-xs font-medium text-slate-300">
+          <span class="h-2 w-2 rounded-full bg-amber-400 animate-pulse"></span>
+          Checking API...
+        </span>
+      </div>
+    </div>
+  </header>
+
+  <main class="flex-1 max-w-5xl w-full mx-auto px-6 py-12 space-y-10">
+    <section class="space-y-4">
+      <span class="inline-block rounded-full bg-emerald-500/10 border border-emerald-500/30 px-3 py-1 text-xs font-medium text-emerald-400">
+        Sprint 0 · Foundation &amp; Architecture Scaffold
+      </span>
+      <h2 class="text-3xl sm:text-4xl font-bold tracking-tight text-white">
+        Verifiable, Secret-Ballot Elections with Configurable Rules
+      </h2>
+      <p class="text-slate-400 max-w-2xl leading-relaxed">
+        VeriVote unifies Single-Choice, Multiple-Choice, and Ranked-Choice (Instant-Runoff) voting
+        inside a multi-tenant FastAPI + PostgreSQL platform with an architectural air-gap between
+        voter accreditation and anonymous ballots.
+      </p>
+    </section>
+
+    <section class="grid grid-cols-1 md:grid-cols-3 gap-5">
+      <div class="vv-card rounded-xl border border-slate-800 bg-slate-900/60 p-5 space-y-2">
+        <h3 class="font-semibold text-white">Multi-Rule Ballots</h3>
+        <p class="text-sm text-slate-400">
+          Mix SINGLE, MULTI (bounded min/max), and RANKED (Instant-Runoff) questions in one election.
+        </p>
+      </div>
+      <div class="vv-card rounded-xl border border-slate-800 bg-slate-900/60 p-5 space-y-2">
+        <h3 class="font-semibold text-white">Decoupled Ballot Secrecy</h3>
+        <p class="text-sm text-slate-400">
+          Zero foreign keys between <code class="text-emerald-400">voter_eligibility</code> and
+          <code class="text-emerald-400">anonymous_votes</code> inside atomic transactions.
+        </p>
+      </div>
+      <div class="vv-card rounded-xl border border-slate-800 bg-slate-900/60 p-5 space-y-2">
+        <h3 class="font-semibold text-white">Cryptographic Receipts</h3>
+        <p class="text-sm text-slate-400">
+          Every cast ballot issues a SHA-256 receipt hash for post-election verification without exposing choices.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="border-t border-slate-800 py-5 text-center text-xs text-slate-500">
+    VeriVote · NAU-SEN 303 Web Application &amp; Development · Sprint 0
+  </footer>
+
+  <script src="/static/js/app.js"></script>
+</body>
+</html>

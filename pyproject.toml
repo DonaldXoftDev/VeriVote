@@ -1,0 +1,19 @@
+[project]
+name = "verivote"
+version = "0.1.0"
+description = "VeriVote — Customizable Web-Based Electronic Voting System with decoupled ballot secrecy and multi-rule tabulation."
+readme = "README.md"
+requires-python = ">=3.11"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+addopts = "-v --tb=short"
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+exclude = ["alembic/versions"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "W", "UP"]
