@@ -5,12 +5,14 @@ class Base(DeclarativeBase):
     """Base class for all SQLAlchemy ORM models."""
 
 
-# Import all models here so Alembic autogenerate discovers every table.
+# Import all 8 3NF models so Alembic autogenerate discovers every table.
 from app.models import (  # noqa: E402, F401
-    AnonymousVote,
+    AnonymousBallot,
+    AuditLog,
+    BallotChoice,
     BallotQuestion,
     CandidateOption,
     Election,
-    ElectionOrganizer,
+    User,
     VoterEligibility,
 )

@@ -1,15 +1,15 @@
 from enum import StrEnum
 
 
-class AuthMode(StrEnum):
-    """Voter accreditation mode for an election."""
+class UserRole(StrEnum):
+    """Platform user roles."""
 
-    CSV_ROSTER = "CSV_ROSTER"
-    DOMAIN_OTP = "DOMAIN_OTP"
+    SUPER_ADMIN = "SUPER_ADMIN"
+    ORGANIZER = "ORGANIZER"
 
 
-class ElectionStatus(StrEnum):
-    """Lifecycle states of an election."""
+class ElectionState(StrEnum):
+    """Timestamp-derived election lifecycle states."""
 
     DRAFT = "DRAFT"
     UPCOMING = "UPCOMING"

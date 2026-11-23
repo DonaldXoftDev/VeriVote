@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>VeriVote — Customizable Web-Based Voting System</title>
+  <title>{{ app_name }} — Customizable Web-Based Voting System</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="/static/css/styles.css" />
 </head>
@@ -13,8 +13,8 @@
       <div class="flex items-center gap-3">
         <span class="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-emerald-500/15 text-emerald-400 font-bold border border-emerald-500/30">V</span>
         <div>
-          <h1 class="text-lg font-semibold tracking-tight">VeriVote</h1>
-          <p class="text-xs text-slate-400">Customizable Electronic Governance Platform</p>
+          <h1 class="text-lg font-semibold tracking-tight">{{ app_name }}</h1>
+          <p class="text-xs text-slate-400">Customizable Electronic Governance Platform · v{{ version }}</p>
         </div>
       </div>
       <div class="flex items-center gap-3">
@@ -30,7 +30,7 @@
   <main class="flex-1 max-w-5xl w-full mx-auto px-6 py-12 space-y-10">
     <section class="space-y-4">
       <span class="inline-block rounded-full bg-emerald-500/10 border border-emerald-500/30 px-3 py-1 text-xs font-medium text-emerald-400">
-        Sprint 0 · Foundation &amp; Architecture Scaffold
+        Sprint 0 · 3NF 8-Table Scaffold
       </span>
       <h2 class="text-3xl sm:text-4xl font-bold tracking-tight text-white">
         Verifiable, Secret-Ballot Elections with Configurable Rules
@@ -38,7 +38,8 @@
       <p class="text-slate-400 max-w-2xl leading-relaxed">
         VeriVote unifies Single-Choice, Multiple-Choice, and Ranked-Choice (Instant-Runoff) voting
         inside a multi-tenant FastAPI + PostgreSQL platform with an architectural air-gap between
-        voter accreditation and anonymous ballots.
+        <code class="text-emerald-400">voter_eligibility</code> and
+        <code class="text-emerald-400">anonymous_ballots</code> / <code class="text-emerald-400">ballot_choices</code>.
       </p>
     </section>
 
@@ -46,20 +47,20 @@
       <div class="vv-card rounded-xl border border-slate-800 bg-slate-900/60 p-5 space-y-2">
         <h3 class="font-semibold text-white">Multi-Rule Ballots</h3>
         <p class="text-sm text-slate-400">
-          Mix SINGLE, MULTI (bounded min/max), and RANKED (Instant-Runoff) questions in one election.
+          Mix SINGLE, MULTI (bounded min/max), and RANKED (Instant-Runoff) questions with optional abstention.
         </p>
       </div>
       <div class="vv-card rounded-xl border border-slate-800 bg-slate-900/60 p-5 space-y-2">
-        <h3 class="font-semibold text-white">Decoupled Ballot Secrecy</h3>
+        <h3 class="font-semibold text-white">3NF Decoupled Secrecy</h3>
         <p class="text-sm text-slate-400">
-          Zero foreign keys between <code class="text-emerald-400">voter_eligibility</code> and
-          <code class="text-emerald-400">anonymous_votes</code> inside atomic transactions.
+          Zero foreign keys and zero timestamps on <code class="text-emerald-400">anonymous_ballots</code>
+          and <code class="text-emerald-400">ballot_choices</code>.
         </p>
       </div>
       <div class="vv-card rounded-xl border border-slate-800 bg-slate-900/60 p-5 space-y-2">
-        <h3 class="font-semibold text-white">Cryptographic Receipts</h3>
+        <h3 class="font-semibold text-white">Auditability &amp; Governance</h3>
         <p class="text-sm text-slate-400">
-          Every cast ballot issues a SHA-256 receipt hash for post-election verification without exposing choices.
+          Super-Admin organizer activation, immutable <code class="text-emerald-400">audit_logs</code>, and SHA-256 receipt verification.
         </p>
       </div>
     </section>

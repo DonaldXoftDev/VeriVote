@@ -1,22 +1,22 @@
 import uuid
-from datetime import datetime
+from datetime import UTC, datetime
 
-from sqlalchemy import Boolean, DateTime, ForeignKey, String, UniqueConstraint, Uuid
+from sqlalchemy import DateTime, ForeignKey, Integer, String, UniqueConstraint, Uuid
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.db.base import Base
 
 
 class VoterEligibility(Base):
-    """Accreditation roll isolated from anonymous ballots (table: voter_eligibility).
+    """Accreditation roll air-gapped from anonymous ballots (table: voter_eligibility).
 
     SECURITY INVARIANT: Never add a foreign key or direct link between this table
-    and `anonymous_votes`.
+    and `anonymous_ballots` or `ballot_choices`.
     """
 
     __tablename__ = "voter_eligibility"
     __table_args__ = (
-        UniqueConstraint("election_id", "identifier_hash", name="uq_voter_election_identifier"),
+        UniqueConstraint("election_id", "email", name="uq_voter_election_email"),
     )
 
     id: Mapped[uuid.UUID] = mapped_column(Uuid(as_uuid=True), primary_key=True, default=uuid.uuid4)
@@ -26,11 +26,23 @@ class VoterEligibility(Base):
         nullable=False,
         index=True,
     )
-    identifier_hash: Mapped[str] = mapped_column(String(64), nullable=False)
-    otp_token_hash: Mapped[str] = mapped_column(String(64), nullable=False)
-    has_voted: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
+    email: Mapped[str] = mapped_column(String(255), nullable=False)
+    voter_ref: Mapped[str | None] = mapped_column(String(100), nullable=True)
+    otp_hash: Mapped[str | None] = mapped_column(String(64), nullable=True)
+    otp_expires_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    otp_attempts: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
     voted_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    updated_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True),
+        nullable=False,
+        default=lambda: datetime.now(UTC),
+        onupdate=lambda: datetime.now(UTC),
+    )
 
     election: Mapped["Election"] = relationship(  # noqa: F821
         back_populates="eligible_voters"
     )
+
+    def has_voted(self) -> bool:
+        """Return True iff this accredited voter has already cast their ballot."""
+        return self.voted_at is not None
