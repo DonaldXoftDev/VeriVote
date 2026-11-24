@@ -1,9 +1,12 @@
-/* Custom Vanilla CSS layer alongside Tailwind CSS */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 9999px; }
+
 .vv-card {
-  transition: border-color 0.2s ease, transform 0.2s ease;
+  transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .vv-card:hover {
-  border-color: rgba(16, 185, 129, 0.45);
+  border-color: #c7d2fe;
   transform: translateY(-2px);
 }
