@@ -10,7 +10,7 @@ VeriVote is a multi-tenant, customizable electronic voting platform built with *
 3. [Repository Structure](#repository-structure)
 4. [Local Setup Guide (Windows & macOS/Linux)](#local-setup-guide-windows--macoslinux)
 5. [Running the App & Tests](#running-the-app--tests)
-6. [Git Branching & Team Contribution Workflow](#git-branching--team-contribution-workflow)
+6. [Contributing](#contributing)
 7. [Sprint Roadmap](#sprint-roadmap)
 
 ---
@@ -68,7 +68,7 @@ VeriVote/
 > **Prerequisites:** Python **3.12+** and Git installed.
 
 ### 1. Clone the Repository
-By default, cloning puts you on the **`dev`** branch (our active integration branch).
+By default, cloning checks out the **`dev`** branch (our active integration branch).
 
 ```bash
 git clone https://github.com/DonaldXoftDev/VeriVote.git
@@ -127,8 +127,7 @@ uvicorn app.main:app --reload
 - **ReDoc:** `http://localhost:8000/redoc`
 - **Health Check:** `http://localhost:8000/api/v1/health`
 
-### Run Linter & Tests Before Pushing
-Every Pull Request must pass both **Ruff** and **Pytest**:
+### Run Linter & Tests
 ```bash
 ruff check .
 pytest
@@ -136,37 +135,9 @@ pytest
 
 ---
 
-## Git Branching & Team Contribution Workflow
+## Contributing
 
-VeriVote uses a two-tier branch model:
-- **`dev` (Default Branch):** Active sprint integration branch where team features are merged and tested together.
-- **`main` (Production Branch):** Stable release branch deployed to FastAPI Cloud. Completed sprints are merged from `dev` -> `main`.
-
-### How to Contribute a Feature
-1. **Sync `dev` before starting:**
-   ```bash
-   git checkout dev
-   git pull origin dev
-   ```
-2. **Create a feature branch off `dev`:**
-   ```bash
-   git checkout -b feat/your-feature-name
-   ```
-   *(Examples: `feat/sprint1-auth-service`, `ui/voter-booth`, `fix/otp-expiry`)*
-3. **Make your changes, lint, and test:**
-   ```bash
-   ruff check .
-   pytest
-   ```
-4. **Commit and push your feature branch (never push directly to `main`):**
-   ```bash
-   git add .
-   git commit -m "feat: short description of your change"
-   git push -u origin feat/your-feature-name
-   ```
-5. **Open a Pull Request on GitHub** targeting **`dev`**, wait for the `lint-and-test` check to turn green, and merge.
-
-See [CONTRIBUTING.md](CONTRIBUTING.md) for architectural rules (including the ballot secrecy air-gap and the 4-Question Model-vs-Service Rubric).
+All work goes through feature branches and Pull Requests into **`dev`** (never push directly to `main` or `dev`). See **[CONTRIBUTING.md](CONTRIBUTING.md)** for the full Git workflow, CI checks, and architectural rules.
 
 ---
 
