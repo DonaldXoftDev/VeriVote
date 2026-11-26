@@ -1,9 +1,9 @@
 # Contributing to VeriVote
 
 ## Branching & Pull Request Workflow
-1. Always pull the latest `main` before starting a task:
+1. Always pull the latest `dev` before starting a task:
    ```bash
-   git checkout main && git pull origin main
+   git checkout dev && git pull origin dev
    ```
 2. Create a descriptive feature branch:
    ```bash
@@ -15,7 +15,7 @@
    ruff check .
    pytest
    ```
-5. Push your branch and open a Pull Request against `main`:
+5. Push your branch and open a Pull Request against `dev`:
    ```bash
    git push -u origin feat/sprint1-auth-service
    ```
