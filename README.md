@@ -67,12 +67,13 @@ VeriVote/
 
 > **Prerequisites:** Python **3.12+** and Git installed.
 
-### 1. Clone the Repository
-By default, cloning checks out the **`dev`** branch (our active integration branch).
+### 1. Clone the Repository & Switch to `dev`
+Cloning puts you on **`main`** (the production/default branch). Always switch to **`dev`** before creating your feature branch:
 
 ```bash
 git clone https://github.com/DonaldXoftDev/VeriVote.git
 cd VeriVote
+git checkout dev
 ```
 
 ### 2. Create a Virtual Environment & Install Dependencies
