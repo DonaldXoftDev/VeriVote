@@ -1,8 +1,8 @@
 # Contributing to VeriVote
 
 ## Branch Model
-- **`dev` (Default Branch):** Active sprint integration branch. All feature PRs target `dev`.
-- **`main` (Production Branch):** Stable release branch deployed to FastAPI Cloud. Completed sprints are merged from `dev` -> `main`.
+- **`main` (Default / Production Branch):** Stable release branch deployed to FastAPI Cloud. Completed sprints are merged from `dev` -> `main`.
+- **`dev` (Integration Branch):** Active sprint integration branch. Always switch to `dev` (`git checkout dev`) after cloning, and target all feature PRs into `dev`.
 
 Both `dev` and `main` are protected by `TeamCollab Ruleset` (Pull Request + passing `lint-and-test` CI check required).
 
