@@ -1,5 +1,6 @@
 import uuid
 from datetime import UTC, datetime
+from typing import TYPE_CHECKING
 
 from sqlalchemy import Boolean, CheckConstraint, DateTime, String, Uuid
 from sqlalchemy import Enum as SAEnum
@@ -7,6 +8,10 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.db.base import Base
 from app.models.enums import UserRole
+
+if TYPE_CHECKING:
+    from app.models.audit_log import AuditLog
+    from app.models.election import Election
 
 
 class User(Base):

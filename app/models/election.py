@@ -1,11 +1,17 @@
 import uuid
 from datetime import UTC, datetime
+from typing import TYPE_CHECKING
 
 from sqlalchemy import CheckConstraint, DateTime, ForeignKey, String, Text, Uuid
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.db.base import Base
 from app.models.enums import ElectionState
+
+if TYPE_CHECKING:
+    from app.models.ballot_question import BallotQuestion
+    from app.models.user import User
+    from app.models.voter_eligibility import VoterEligibility
 
 
 class Election(Base):
