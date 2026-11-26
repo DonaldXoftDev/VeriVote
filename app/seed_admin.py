@@ -1,4 +1,4 @@
-from sqlalchemy import select, text
+from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from app.core.config import get_settings
@@ -6,7 +6,6 @@ from app.core.security import get_password_hash
 from app.db.session import SessionLocal
 from app.models import User
 from app.models.enums import UserRole
-
 
 
 def seed_admin(db: Session, admin_email: str, admin_password: str) -> User:
