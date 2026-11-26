@@ -1,12 +1,7 @@
-from pydantic import ValidationError
 import pytest
-from app.schemas.user import (
-    UserCreate,
-    UserResponse,
-    UserLogin,
-    TokenResponse,
-    LogoutUser
-)
+from pydantic import ValidationError
+
+from app.schemas.user import UserCreate
 
 
 @pytest.fixture
@@ -43,7 +38,7 @@ def test_short_password_fails(user_details):
 
 def test_blank_org_name_during_user_creation_fails(user_details):
         with pytest.raises(ValidationError):
-            UserCreate(    
+            UserCreate(
                 email=user_details['email'],
                 password='james',
                 org_name='',
