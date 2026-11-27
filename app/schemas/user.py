@@ -1,0 +1,42 @@
+from datetime import datetime
+from typing import Annotated
+from uuid import UUID
+
+from pydantic import BaseModel, ConfigDict, EmailStr, Field, StringConstraints
+
+from app.models.enums import UserRole
+
+
+class UserBase(BaseModel):
+    email: EmailStr
+
+class UserCreate(UserBase):
+    password: str = Field(..., min_length=8, max_length=64)
+    org_name: Annotated[
+        str,
+        StringConstraints(strip_whitespace=True, min_length=1, max_length=150),
+    ]
+
+
+
+class UserLogin(UserBase):
+    password: str = Field(..., min_length=8, max_length=64)
+
+class UserResponse(BaseModel):
+    id: UUID
+    email: EmailStr
+    org_name: str| None
+    role: UserRole
+    is_active: bool
+    created_at: datetime
+    updated_at: datetime
+
+    model_config = ConfigDict(from_attributes=True)
+
+class TokenResponse(BaseModel):
+    access_token: str
+    token_type: str =  'bearer'
+    user: UserResponse
+
+class LogoutUser(BaseModel):
+    message: str = "Logged out successfully"

@@ -1,5 +1,6 @@
 import uuid
 from datetime import UTC, datetime
+from typing import TYPE_CHECKING
 
 from sqlalchemy import Boolean, CheckConstraint, DateTime, String, Uuid
 from sqlalchemy import Enum as SAEnum
@@ -7,6 +8,10 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.db.base import Base
 from app.models.enums import UserRole
+
+if TYPE_CHECKING:
+    from app.models.audit_log import AuditLog
+    from app.models.election import Election
 
 
 class User(Base):
@@ -19,7 +24,7 @@ class User(Base):
 
     id: Mapped[uuid.UUID] = mapped_column(Uuid(as_uuid=True), primary_key=True, default=uuid.uuid4)
     email: Mapped[str] = mapped_column(String(255), unique=True, nullable=False, index=True)
-    org_name: Mapped[str] = mapped_column(String(150), nullable=False)
+    org_name: Mapped[str] = mapped_column(String(150), nullable=True)
     password_hash: Mapped[str] = mapped_column(String(255), nullable=False)
     role: Mapped[UserRole] = mapped_column(
         SAEnum(UserRole, name="user_role", native_enum=False),
