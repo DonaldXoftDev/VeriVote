@@ -27,6 +27,9 @@ def seed_admin(db: Session, admin_email: str, admin_password: str) -> User:
 
 if __name__ == "__main__":
     settings = get_settings()
+    if not settings.ADMIN_EMAIL or not settings.ADMIN_PASSWORD:
+        raise RuntimeError("ADMIN_EMAIL and ADMIN_PASSWORD must be set before seeding.")
+
     with SessionLocal() as db:
         try:
             seed_admin(

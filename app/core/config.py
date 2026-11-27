@@ -21,8 +21,8 @@ class Settings(BaseSettings):
     SMTP_PASSWORD: str = ""
     SMTP_FROM_EMAIL: str = "noreply@verivote.local"
 
-    ADMIN_EMAIL: str| None
-    ADMIN_PASSWORD: str| None
+    ADMIN_EMAIL: str | None = None
+    ADMIN_PASSWORD: str | None = None
 
     model_config = SettingsConfigDict(
         env_file=".env",
