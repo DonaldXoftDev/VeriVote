@@ -1,0 +1,748 @@
+/* =====================================================
+   VERIVOTE SHARED STYLESHEET
+   Page-specific selectors are scoped to each <main> class.
+   index.html: .home-page | login.html: .login-page
+   register.html: .register-page | lobby.html: .lobby-page
+===================================================== */
+
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 9999px; }
+
+.vv-card {
+  transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.vv-card:hover {
+  border-color: #c7d2fe;
+  transform: translateY(-2px);
+}
+/* =========================================
+   VERIVOTE - GLOBAL STYLING
+========================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f8fafc;
+    color: #111827;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* =========================================
+   NAVIGATION BAR
+========================================= */
+
+nav {
+    background-color: #ffffff;
+    border-bottom: 1px solid #e2e8f0;
+    padding: 18px 0;
+}
+
+nav > div {
+    max-width: 1280px;
+    margin: auto;
+    padding: 0 40px;
+}
+
+nav a {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    text-decoration: none;
+    color: #111827;
+    width: fit-content;
+}
+
+nav a div {
+    width: 48px;
+    height: 48px;
+    background-color: #111827;
+    border-radius: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+nav a div svg {
+    width: 25px;
+    height: 25px;
+}
+
+nav a span {
+    font-size: 25px;
+    font-weight: 700;
+    letter-spacing: -0.8px;
+}
+
+/* =========================================
+   LOGIN SECTION
+========================================= */
+
+.login-page {
+    min-height: 85vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 50px 20px;
+}
+
+.login-page section {
+    width: 100%;
+    max-width: 480px;
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 25px;
+    padding: 40px;
+    box-shadow: 0 4px 15px rgba(15, 23, 42, 0.04);
+}
+
+/* =========================================
+   LOGIN HEADER
+========================================= */
+
+.login-page section > div:first-child {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.login-page section > div:first-child > div {
+    width: 60px;
+    height: 60px;
+    background-color: #eef2ff;
+    color: #4338ca;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+}
+
+.login-page section > div:first-child svg {
+    width: 28px;
+    height: 28px;
+}
+
+.login-page h1 {
+    font-size: 30px;
+    font-weight: 700;
+    color: #111827;
+    letter-spacing: -0.8px;
+}
+
+.login-page section > div:first-child p {
+    color: #64748b;
+    font-size: 15px;
+    line-height: 1.7;
+    margin-top: 12px;
+}
+
+/* =========================================
+   ERROR MESSAGE
+========================================= */
+
+#login-error {
+    background-color: #fef2f2;
+    border: 1px solid #fecaca;
+    color: #b91c1c;
+    border-radius: 12px;
+    padding: 14px;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+#login-error.hidden {
+    display: none;
+}
+
+/* =========================================
+   LOGIN FORM
+========================================= */
+
+#login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 23px;
+}
+
+#login-form > div {
+    display: flex;
+    flex-direction: column;
+}
+
+#login-form label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #334155;
+    margin-bottom: 9px;
+}
+
+#login-form input {
+    width: 100%;
+    padding: 15px 16px;
+    border: 1px solid #cbd5e1;
+    border-radius: 13px;
+    outline: none;
+    background-color: #ffffff;
+    color: #111827;
+    font-family: inherit;
+    font-size: 15px;
+    transition: all 0.25s ease;
+}
+
+#login-form input::placeholder {
+    color: #94a3b8;
+}
+
+#login-form input:focus {
+    border-color: #4338ca;
+    box-shadow: 0 0 0 4px rgba(67, 56, 202, 0.12);
+}
+
+/* =========================================
+   SIGN IN BUTTON
+========================================= */
+
+#login-submit-btn {
+    width: 100%;
+    padding: 16px;
+    background-color: #111827;
+    color: #ffffff;
+    border: none;
+    border-radius: 13px;
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    box-shadow: 0 5px 12px rgba(17, 24, 39, 0.12);
+}
+
+#login-submit-btn:hover {
+    background-color: #4338ca;
+    transform: translateY(-2px);
+    box-shadow: 0 7px 15px rgba(67, 56, 202, 0.18);
+}
+
+#login-submit-btn:active {
+    transform: translateY(0);
+}
+
+/* =========================================
+   REGISTRATION LINK
+========================================= */
+
+.login-page section > div:last-child {
+    text-align: center;
+    margin-top: 30px;
+    padding-top: 24px;
+    border-top: 1px solid #f1f5f9;
+}
+
+.login-page section > div:last-child p {
+    color: #64748b;
+    font-size: 14px;
+}
+
+.login-page section > div:last-child a {
+    color: #4338ca;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.login-page section > div:last-child a:hover {
+    color: #3730a3;
+    text-decoration: underline;
+}
+
+/* =========================================
+   RESPONSIVE DESIGN
+========================================= */
+
+@media screen and (max-width: 600px) {
+
+    nav {
+        padding: 14px 0;
+    }
+
+    nav > div {
+        padding: 0 20px;
+    }
+
+    nav a div {
+        width: 43px;
+        height: 43px;
+    }
+
+    nav a span {
+        font-size: 22px;
+    }
+
+    .login-page {
+        padding: 35px 16px;
+        align-items: flex-start;
+    }
+
+    .login-page section {
+        padding: 28px 22px;
+        border-radius: 20px;
+    }
+
+    .login-page h1 {
+        font-size: 26px;
+    }
+
+    .login-page section > div:first-child p {
+        font-size: 14px;
+    }
+
+    #login-form input {
+        padding: 14px;
+    }
+
+    #login-submit-btn {
+        padding: 15px;
+    }
+}
+
+@media screen and (max-width: 360px) {
+
+    .login-page section {
+        padding: 24px 17px;
+    }
+
+    .login-page h1 {
+        font-size: 23px;
+    }
+
+    nav a span {
+        font-size: 20px;
+    }
+}
+
+/* =========================================
+   VERIVOTE - REGISTRATION PAGE
+========================================= */
+
+/* Registration Form */
+
+.register-page #register-form {
+    display: flex;
+    flex-direction: column;
+    gap: 23px;
+}
+
+.register-page #register-form > div {
+    display: flex;
+    flex-direction: column;
+}
+
+.register-page #register-form label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #334155;
+    margin-bottom: 9px;
+}
+
+.register-page #register-form input {
+    width: 100%;
+    padding: 15px 16px;
+    border: 1px solid #cbd5e1;
+    border-radius: 13px;
+    outline: none;
+    background-color: #ffffff;
+    color: #111827;
+    font-family: inherit;
+    font-size: 15px;
+    transition: all 0.25s ease;
+}
+
+.register-page #register-form input::placeholder {
+    color: #94a3b8;
+}
+
+.register-page #register-form input:focus {
+    border-color: #4338ca;
+    box-shadow: 0 0 0 4px rgba(67, 56, 202, 0.12);
+}
+
+/* Password Information */
+
+.register-page #register-form p {
+    color: #94a3b8;
+    font-size: 12px;
+    margin-top: 8px;
+}
+
+/* Create Account Button */
+
+.register-page #reg-submit-btn {
+    width: 100%;
+    padding: 16px;
+    background-color: #111827;
+    color: #ffffff;
+    border: none;
+    border-radius: 13px;
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    box-shadow: 0 5px 12px rgba(17, 24, 39, 0.12);
+}
+
+.register-page #reg-submit-btn:hover {
+    background-color: #4338ca;
+    transform: translateY(-2px);
+    box-shadow: 0 7px 15px rgba(67, 56, 202, 0.18);
+}
+
+.register-page #reg-submit-btn:active {
+    transform: translateY(0);
+}
+
+/* Error Alert */
+
+.register-page #register-error {
+    background-color: #fef2f2;
+    border: 1px solid #fecaca;
+    color: #b91c1c;
+    padding: 14px;
+    border-radius: 12px;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+.register-page #register-error.hidden {
+    display: none;
+}
+
+/* Success Alert */
+
+.register-page #register-success {
+    background-color: #ecfdf5;
+    border: 1px solid #a7f3d0;
+    color: #047857;
+    padding: 14px;
+    border-radius: 12px;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+.register-page #register-success.hidden {
+    display: none;
+}
+
+/* Registration Responsive Design */
+
+@media screen and (max-width: 600px) {
+
+    .register-page #register-form input {
+        padding: 14px;
+    }
+
+    .register-page #reg-submit-btn {
+        padding: 15px;
+    }
+}
+
+@media screen and (max-width: 360px) {
+
+    .register-page #register-form {
+        gap: 19px;
+    }
+
+    .register-page #reg-submit-btn {
+        font-size: 15px;
+    }
+}
+
+
+/* =========================================
+   VERIVOTE - LOBBY / PENDING APPROVAL PAGE
+========================================= */
+
+/* Navigation */
+
+nav {
+    background-color: #ffffff;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+nav > div {
+    max-width: 1280px;
+    margin: auto;
+    padding: 18px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+nav a {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    text-decoration: none;
+    color: #111827;
+}
+
+nav a div {
+    width: 48px;
+    height: 48px;
+    background-color: #111827;
+    border-radius: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+nav a span {
+    font-size: 25px;
+    font-weight: 700;
+}
+
+/* Logout Button */
+
+.lobby-page #lobby-logout-btn {
+    padding: 11px 22px;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    background-color: white;
+    color: #334155;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.lobby-page #lobby-logout-btn:hover {
+    background-color: #f1f5f9;
+    border-color: #cbd5e1;
+}
+
+/* Main Section */
+
+.lobby-page {
+    min-height: 85vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 50px 20px;
+}
+
+/* Approval Card */
+
+.lobby-page section {
+    width: 100%;
+    max-width: 672px;
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 25px;
+    padding: 48px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(15, 23, 42, 0.04);
+}
+
+/* Status Icon */
+
+.lobby-page section > div:first-child {
+    width: 80px;
+    height: 80px;
+    background-color: #fffbeb;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 28px;
+}
+
+.lobby-page section > div:first-child svg {
+    width: 40px;
+    height: 40px;
+}
+
+/* Pending Badge */
+
+.lobby-page section > div:nth-child(2) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    padding: 9px 17px;
+    background-color: #fffbeb;
+    border: 1px solid #fde68a;
+    border-radius: 30px;
+    color: #b45309;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 24px;
+}
+
+/* Status Heading */
+
+.lobby-page section h1 {
+    font-size: 34px;
+    line-height: 1.3;
+    font-weight: 700;
+    color: #111827;
+    letter-spacing: -1px;
+}
+
+/* Description */
+
+.lobby-page section > p {
+    color: #64748b;
+    font-size: 15px;
+    line-height: 1.8;
+}
+
+.lobby-page section > p:nth-of-type(1) {
+    margin-top: 24px;
+    font-size: 17px;
+}
+
+.lobby-page section > p:nth-of-type(2) {
+    margin-top: 12px;
+}
+
+/* Organization Name */
+
+.lobby-page #lobby-org-name {
+    color: #1e293b;
+    font-weight: 600;
+}
+
+/* Divider */
+
+.lobby-page section > div:nth-child(4) {
+    border-top: 1px solid #f1f5f9;
+    margin: 32px 0;
+}
+
+/* Information Box */
+
+.lobby-page section > div:nth-child(5) {
+    background-color: #fffbeb;
+    border: 1px solid #fef3c7;
+    border-radius: 17px;
+    padding: 22px;
+    text-align: left;
+}
+
+.lobby-page section > div:nth-child(5) h3 {
+    color: #92400e;
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.lobby-page section > div:nth-child(5) p {
+    color: #b45309;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+/* Check Status Button */
+
+.lobby-page #lobby-refresh-btn {
+    padding: 16px 40px;
+    background-color: #4338ca;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 32px;
+    transition: all 0.25s ease;
+    box-shadow: 0 5px 12px rgba(67, 56, 202, 0.12);
+}
+
+.lobby-page #lobby-refresh-btn:hover {
+    background-color: #3730a3;
+    transform: translateY(-2px);
+    box-shadow: 0 7px 15px rgba(67, 56, 202, 0.2);
+}
+
+/* Footer Text */
+
+.lobby-page section > p:last-child {
+    font-size: 12px;
+    color: #94a3b8;
+    margin-top: 24px;
+}
+
+/* =========================================
+   RESPONSIVE DESIGN
+========================================= */
+
+@media screen and (max-width: 600px) {
+
+    nav > div {
+        padding: 14px 20px;
+    }
+
+    nav a div {
+        width: 43px;
+        height: 43px;
+    }
+
+    nav a span {
+        font-size: 22px;
+    }
+
+    .lobby-page #lobby-logout-btn {
+        padding: 9px 15px;
+        font-size: 13px;
+    }
+
+    .lobby-page {
+        padding: 35px 16px;
+    }
+
+    .lobby-page section {
+        padding: 30px 22px;
+        border-radius: 20px;
+    }
+
+    .lobby-page section h1 {
+        font-size: 27px;
+    }
+
+    .lobby-page section > p:nth-of-type(1) {
+        font-size: 15px;
+    }
+
+    .lobby-page section > p {
+        font-size: 14px;
+    }
+
+    .lobby-page #lobby-refresh-btn {
+        width: 100%;
+        padding: 15px;
+    }
+}
+
+@media screen and (max-width: 360px) {
+
+    .lobby-page section {
+        padding: 25px 17px;
+    }
+
+    .lobby-page section h1 {
+        font-size: 24px;
+    }
+
+    nav a span {
+        font-size: 20px;
+    }
+}
