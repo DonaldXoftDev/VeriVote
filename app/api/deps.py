@@ -48,7 +48,10 @@ def require_super_admin(current_user: User = Depends(get_current_user)) -> User:
 
 def require_active_organizer(current_user: User = Depends(get_current_user)) -> User:
     """Ensure the authenticated user is an active ORGANIZER (or SUPER_ADMIN)."""
-    if current_user.role not in (UserRole.ORGANIZER, UserRole.SUPER_ADMIN) and not current_user.is_active:
+    if (
+        current_user.role not in (UserRole.ORGANIZER, UserRole.SUPER_ADMIN)
+        and not current_user.is_active
+    ):
         raise ForbiddenError("Organizer privileges are required for this action.")
     return current_user
 
