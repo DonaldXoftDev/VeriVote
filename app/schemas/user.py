@@ -10,12 +10,13 @@ class UserBase(BaseModel):
     email: EmailStr
 
 class UserCreate(UserBase):
-    password: str = Field(..., min_length=8,)
-    org_name: str
+    password: str = Field(..., min_length=8, max_length=64)
+    org_name: str =  Field(..., min_length=1, max_length=150)
 
+    model_config = ConfigDict(from_attributes=True)
 
 class UserLogin(UserBase):
-    password: str = Field(..., min_length=8,)
+    password: str = Field(..., min_length=8, max_length=64)
 
 class UserResponse(BaseModel):
     id: UUID

@@ -20,29 +20,20 @@ def test_usercreate_schema_succeeds(user_details):
     assert record.org_name == user_details['org_name']
 
 def test_invalid_email_format_fails(user_details):
-    with pytest.raises(ValidationError):
-        UserCreate(
-            email='james@',
-            password=user_details['password'],
-            org_name=user_details['org_name']
-        )
+    user_details['email'] = 'james'
+    with pytest.raises(ValidationError, match='must have an @-sign'):
+        UserCreate(**user_details)
 
 def test_short_password_fails(user_details):
-      with pytest.raises(ValidationError):
-        UserCreate(
-            email=user_details['email'],
-            password='james',
-            org_name=user_details['org_name'],
-        )
+    user_details['password'] = 'abc39'
+    with pytest.raises(ValidationError, match='at least 8 characters'):
+        UserCreate(**user_details)
 
 
 def test_blank_org_name_during_user_creation_fails(user_details):
-        with pytest.raises(ValidationError):
-            UserCreate(
-                email=user_details['email'],
-                password='james',
-                org_name='',
-            )
+    user_details['org_name'] = ''
+    with pytest.raises(ValidationError, match='at least 1 character'):
+        UserCreate(**user_details)
 
 def test_userresponse_model_omit_password_hash(user_details):
     record = UserCreate(**user_details)
