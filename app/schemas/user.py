@@ -1,7 +1,8 @@
 from datetime import datetime
+from typing import Annotated
 from uuid import UUID
 
-from pydantic import BaseModel, ConfigDict, EmailStr, Field
+from pydantic import BaseModel, ConfigDict, EmailStr, Field, StringConstraints
 
 from app.models.enums import UserRole
 
@@ -11,9 +12,12 @@ class UserBase(BaseModel):
 
 class UserCreate(UserBase):
     password: str = Field(..., min_length=8, max_length=64)
-    org_name: str =  Field(..., min_length=1, max_length=150)
+    org_name: Annotated[
+        str,
+        StringConstraints(strip_whitespace=True, min_length=1, max_length=150),
+    ]
 
-    model_config = ConfigDict(from_attributes=True)
+
 
 class UserLogin(UserBase):
     password: str = Field(..., min_length=8, max_length=64)
