@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VeriVote | System Admin</title>
+
+  <!-- Shared Tailwind Setup -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] },
+          colors: {
+            brand: { 50: '#eef2ff', 100: '#e0e7ff', 500: '#4f46e5', 600: '#4338ca', 700: '#3730a3' }
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-[#f8fafc] text-slate-900 font-sans antialiased min-h-screen flex flex-col">
+
+  <!-- TOP NAVIGATION BAR -->
+  <header class="bg-white border-b border-slate-200">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 sm:h-20 flex items-center justify-between gap-4">
+
+      <!-- Left: VeriVote Brand Logo + System Admin Badge -->
+      <div class="flex items-center gap-3 min-w-0">
+        <a href="/index.html" class="flex items-center gap-2.5 sm:gap-3 shrink-0">
+          <div class="w-9 h-9 sm:w-10 sm:h-10 bg-[#111827] rounded-xl flex items-center justify-center shadow-sm">
+            <svg xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24" fill="none"
+              stroke="white" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round"
+              class="w-5 h-5 sm:w-6 sm:h-6">
+              <path d="M12 22s8-4 8-11V5l-8-3-8 3v6c0 7 8 11 8 11z" />
+              <path d="m9 12 2 2 4-4" />
+            </svg>
+          </div>
+          <span class="text-xl sm:text-2xl font-bold tracking-tight text-slate-900">VeriVote</span>
+        </a>
+
+        <span class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-semibold bg-brand-50 text-brand-700 border border-brand-100 whitespace-nowrap">
+          System Admin
+        </span>
+      </div>
+
+      <!-- Right: Logout Button -->
+      <button
+        type="button"
+        id="admin-logout-btn"
+        class="px-4 py-2 sm:px-5 sm:py-2.5 bg-white border border-slate-200 rounded-xl text-sm font-semibold text-slate-700 hover:bg-slate-50 hover:text-slate-900 transition shadow-sm shrink-0">
+        Logout
+      </button>
+
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main class="flex-1 max-w-6xl w-full mx-auto px-4 sm:px-6 py-8 sm:py-12">
+
+    <!-- PAGE HEADER -->
+    <div class="text-center max-w-2xl mx-auto mb-8 sm:mb-10">
+      <h1 class="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900">
+        Platform Administration
+      </h1>
+      <p class="mt-2 text-sm sm:text-base text-slate-500">
+        Approve or suspend election organizer accounts.
+      </p>
+    </div>
+
+    <!-- 3-CARD SUMMARY STRIP -->
+    <section aria-label="Organizer Summary" class="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-5 max-w-4xl mx-auto mb-8">
+
+      <!-- Total Organizers -->
+      <div class="bg-white border border-slate-200 rounded-2xl p-5 sm:p-6 shadow-sm">
+        <p class="text-sm font-medium text-slate-500">Total Organizers</p>
+        <p id="stat-total" class="mt-2 text-3xl font-bold tracking-tight text-slate-900">12</p>
+      </div>
+
+      <!-- Pending Approval -->
+      <div class="bg-white border border-slate-200 rounded-2xl p-5 sm:p-6 shadow-sm">
+        <div class="flex items-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-full bg-amber-500 shrink-0" aria-hidden="true"></span>
+          <p class="text-sm font-medium text-slate-500">Pending Approval</p>
+        </div>
+        <p id="stat-pending" class="mt-2 text-3xl font-bold tracking-tight text-slate-900">4</p>
+      </div>
+
+      <!-- Active -->
+      <div class="bg-white border border-slate-200 rounded-2xl p-5 sm:p-6 shadow-sm">
+        <div class="flex items-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 shrink-0" aria-hidden="true"></span>
+          <p class="text-sm font-medium text-slate-500">Active</p>
+        </div>
+        <p id="stat-active" class="mt-2 text-3xl font-bold tracking-tight text-slate-900">7</p>
+      </div>
+
+    </section>
+
+    <!-- HIDDEN ERROR BANNER (For API Wiring) -->
+    <div
+      id="admin-error"
+      role="alert"
+      class="hidden max-w-4xl mx-auto mb-6 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm font-medium text-red-700">
+      Unable to load organizer accounts. Please try again.
+    </div>
+
+    <!-- ORGANIZERS TABLE CARD -->
+    <section aria-label="Election Organizers" class="max-w-4xl mx-auto bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden">
+      <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse min-w-[600px]">
+          <thead>
+            <tr class="bg-slate-50/80 border-b border-slate-200">
+              <th scope="col" class="px-6 py-4 text-xs font-semibold uppercase tracking-wider text-slate-600">
+                Organization Name
+              </th>
+              <th scope="col" class="px-6 py-4 text-xs font-semibold uppercase tracking-wider text-slate-600">
+                Email
+              </th>
+              <th scope="col" class="px-6 py-4 text-xs font-semibold uppercase tracking-wider text-slate-600">
+                Status
+              </th>
+              <th scope="col" class="px-6 py-4 text-xs font-semibold uppercase tracking-wider text-slate-600 text-right">
+                Action
+              </th>
+            </tr>
+          </thead>
+
+          <tbody id="admin-orgs-body" class="divide-y divide-slate-100 text-sm">
+
+            <!-- Row 1: Pending -->
+            <tr class="hover:bg-slate-50/60 transition-colors">
+              <td class="px-6 py-4 font-semibold text-slate-900 whitespace-nowrap">
+                Student Tech Union
+              </td>
+              <td class="px-6 py-4 text-slate-600 whitespace-nowrap">
+                elections@studenttech.edu
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-amber-50 text-amber-700 border border-amber-200">
+                  <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+                  Pending
+                </span>
+              </td>
+              <td class="px-6 py-4 text-right whitespace-nowrap">
+                <button
+                  type="button"
+                  class="px-4 py-1.5 rounded-lg text-xs font-semibold bg-brand-600 text-white hover:bg-brand-700 transition shadow-sm">
+                  Approve
+                </button>
+              </td>
+            </tr>
+
+            <!-- Row 2: Active -->
+            <tr class="hover:bg-slate-50/60 transition-colors">
+              <td class="px-6 py-4 font-semibold text-slate-900 whitespace-nowrap">
+                Civic Action Council
+              </td>
+              <td class="px-6 py-4 text-slate-600 whitespace-nowrap">
+                admin@civicaction.org
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                  Active
+                </span>
+              </td>
+              <td class="px-6 py-4 text-right whitespace-nowrap">
+                <button
+                  type="button"
+                  class="px-4 py-1.5 rounded-lg text-xs font-semibold bg-red-50 text-red-700 border border-red-200 hover:bg-red-100 transition">
+                  Suspend
+                </button>
+              </td>
+            </tr>
+
+            <!-- Row 3: Suspended -->
+            <tr class="hover:bg-slate-50/60 transition-colors">
+              <td class="px-6 py-4 font-semibold text-slate-900 whitespace-nowrap">
+                Metro Guild Association
+              </td>
+              <td class="px-6 py-4 text-slate-600 whitespace-nowrap">
+                contact@metroguild.com
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-red-50 text-red-700 border border-red-200">
+                  <span class="w-1.5 h-1.5 rounded-full bg-red-500"></span>
+                  Suspended
+                </span>
+              </td>
+              <td class="px-6 py-4 text-right whitespace-nowrap">
+                <button
+                  type="button"
+                  class="px-4 py-1.5 rounded-lg text-xs font-semibold bg-white text-slate-700 border border-slate-200 hover:bg-slate-50 hover:text-slate-900 transition shadow-sm">
+                  Reactivate
+                </button>
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+
+</body>
+</html>
